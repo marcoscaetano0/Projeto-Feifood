@@ -1,0 +1,6 @@
+1,hamburguer,R$30,Toninho lanches
+2,pizza,R$89,giannoto
+3,milkshake,R$10,Chiquinho
+4,temaki,R$20,Temaki do Japa
+5,pastel,R$12, Japastel
+6,marmitex,R$20, cozinha da Nona
