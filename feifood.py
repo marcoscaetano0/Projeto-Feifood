@@ -1,4 +1,3 @@
-# Bloco 1
 ARQUIVO_USUARIOS = "usuarios_feifood.txt"
 ARQUIVO_PEDIDOS = "pedidos_feifood.txt"
 ARQUIVO_ALIMENTOS = "alimentos_feifood.txt" 
@@ -8,7 +7,6 @@ ARQUIVO_ALIMENTOS = "alimentos_feifood.txt"
 def ler_arquivo(nome_arquivo):
     """Esta função lê um arquivo de texto e o transforma em uma lista de listas. """
     try:
-        # with open abre o arquivo e fecha automaticamente.
         # encoding=utf-8 garante que ç/á vai ser lido certo
         with open(nome_arquivo, 'r', encoding='utf-8') as f:
             # cria uma lista vazia para guardar os dados do arquivo.
@@ -17,11 +15,8 @@ def ler_arquivo(nome_arquivo):
                 # 'linha.strip()' remove os espaços e branco e quebras de linha
                 linha_limpa = linha.strip()
                 
-                # se a linha não estiver vazia...
                 if linha_limpa:
-                    # 'linha_limpa.split(',')' quebra a string usando virgula
-                    # ex: "pizza,10.00" vai vira "pizza", "10.00"
-                    # 'lista_dados.append(...)' adiciona essa nova lista à lista principal.
+                    # 'linha_limpa.split quebra a string usando virgula
                     lista_dados.append(linha_limpa.split(','))
             
             return lista_dados
@@ -29,7 +24,6 @@ def ler_arquivo(nome_arquivo):
     # 'except FileNotFoundError' é um tratamento de erro.
     # se o arquivo usuarios.txt não existir, ele não vai crashar o prog
     except FileNotFoundError:
-        # apenas return uma lista vazia, como se o arquivo estivesse vazio.
         return []
 
 def escrever_arquivo(nome_arquivo, lista_dados):
@@ -42,12 +36,10 @@ def escrever_arquivo(nome_arquivo, lista_dados):
     # !! nao esquecer !! O modo 'w' APAGA TUDO que estava no arquivo antes.
     with open(nome_arquivo, 'w', encoding='utf-8') as f:
         
-        # passa por cada linha na 'lista_dados'.
+        
         for linha_lista in lista_dados:
             
-            # join(linha_lista)' faz o oposto do 'split'.
-            # Junta a lista de volta em uma string
-           # igual ex pizza que separa por virgula
+            
             linha_str = ','.join(linha_lista)
             
             # Escreve a string no arquivo e add quebra de linha
@@ -60,7 +52,6 @@ def cadastrar_usuario():
     
     print("\n--- Cadastro de Novo Usuário ---")
     
-    # 1. le os dados carrega todos os usuários já existentes na memória.
     lista_de_usuarios = ler_arquivo(ARQUIVO_USUARIOS)
     
     #  while True vai garantir que o username seja único.
@@ -90,7 +81,7 @@ def cadastrar_usuario():
     # adiciona a lista do novo usuário à lista principal.
     lista_de_usuarios.append(novo_usuario)
     
-    # 3. write os dados:
+    # 3 write os dados:
     # salva a lista principal com o novo usuário de volta no arquivo.
     escrever_arquivo(ARQUIVO_USUARIOS, lista_de_usuarios)
     print(f"Usuário {username} cadastrado com sucesso!")
@@ -120,7 +111,7 @@ def fazer_login():
     print("Usuário ou senha inválidos.")
     return None
 
-#  Bloco 4: Functions de logica do app 
+#  Bloco 4: functions de logica do app 
 
 def buscar_alimento(lista_alimentos_fixa):
     """
@@ -216,7 +207,6 @@ def editar_pedido(lista_alimentos_fixa, username_logado):
     
     #2 filtra
     # cria uma nova lista 'pedidos_editaveis' apenas com os pedidos que
-    # pertencem ao 'username_logado' (p[1])
     # p{3} NA
     pedidos_editaveis = [p for p in lista_pedidos if p[1] == username_logado and p[3] == "NA"]
 
@@ -224,7 +214,6 @@ def editar_pedido(lista_alimentos_fixa, username_logado):
         print("Você não tem pedidos pendentes (não avaliados) para editar.")
         return
     
-    # print os pedidos q o user pode editar
     print("\nSeus pedidos editáveis:")
     for pedido in pedidos_editaveis:
         # so pra ficar mais bonito na tela
@@ -249,7 +238,7 @@ def editar_pedido(lista_alimentos_fixa, username_logado):
     #4 modifica
     pedido_encontrado = lista_pedidos[indice_pedido]
     
-    # Pega a string de itens do pedido e transforma em lista.
+    # pega a string de itens do pedido e transforma em lista.
     lista_ids_atuais = pedido_encontrado[2].split(';')
 
     while True:
@@ -293,7 +282,6 @@ def editar_pedido(lista_alimentos_fixa, username_logado):
             
     #5 salva
     if lista_ids_atuais: # c a lista n tiver vazia
-        # transforma em string
         # E atualiza o item na lista_pedidos
         lista_pedidos[indice_pedido][2] = ";".join(lista_ids_atuais)
         
@@ -498,4 +486,4 @@ def main():
 
 # ponto de entrada
 if __name__ == "__main__":
-    main() 
+    main()
